@@ -1,0 +1,50 @@
+html {
+    font-family: 'Roboto';
+    font-size: 62.5%;
+	line-height: auto;
+	color: #404040;
+	-webkit-overflow-scrolling: touch;
+}
+
+body {
+	margin: 0px;
+    color: #14171a;
+    font-size: 1.6rem;
+	background-color: #f0f0f0;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0px; }
+
+*,
+*::after,
+*::before {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.container {
+	position: relative;
+	max-width: 576px;
+	margin: auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:focus,
+a:not([href]):not([tabindex]):hover,
+a:not([href]):not([tabindex]):focus {
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.green {
+	color: #16a085;
+}
+
+.red {
+	color: #2980b9;
+}

@@ -1,0 +1,23 @@
+.questions {
+	width: 500px;
+	margin : 0 auto;
+}
+
+.next, .previous, .finish {
+	display: block;
+	padding: 8px;
+	background-color: #189ab6;
+	float: left;
+	color: #fff;
+	cursor: pointer;
+}
+
+.finish {
+	display: none;
+	float: none;
+}
+
+
+.next {
+	float: right;
+}
