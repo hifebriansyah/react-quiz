@@ -1,0 +1,80 @@
+.course {
+	background-color: #fff;
+	margin-top: 116px;
+	padding: 16px;
+	display: block;
+}
+
+
+.course:nth-child(1) {
+	margin-top: 84px;
+}
+
+.course > .top {
+	height: 200px;
+	background-color:#ddd;
+	position: relative;
+	margin-top: -100px;
+	margin-bottom: 16px;
+	padding: 16px;
+	color: #fff;
+	background-size: cover;
+	text-shadow: 1px 1px #404040;
+}
+
+
+.course > .top div {
+	position: absolute;
+	bottom: 32px;
+}
+
+.course > .top h1{
+	font-size: 2.8rem;
+	font-weight: bold;
+	letter-spacing: 3px;
+}
+
+.course > .top p{
+	font-size: 1.6rem;
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-style: italic;
+	width: calc(100% - 0px);
+}
+
+.bottom > span {
+	font-style: italic;
+}
+
+.course > .bottom table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 16px 0px;
+}
+
+.course > .bottom tr {
+	border:1px solid #ddd;
+}
+
+.course > .bottom td {
+	padding: 8px;
+	font-size: 1.6rem;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: bold;
+}
+
+.course > .bottom td:nth-child(1) {
+	width: 50px;
+	font-size: 2.0rem;
+}
+
+.course > .bottom td:nth-child(2) {
+	text-align: left;
+	font-weight: normal;
+	padding: 0;
+}
+
+.course > .bottom td:nth-child(3) {
+	width: 90px;
+}

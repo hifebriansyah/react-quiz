@@ -10,7 +10,14 @@ body {
 	margin: 0px;
     color: #14171a;
     font-size: 1.6rem;
-	background-color: #f0f0f0;
+	background-color: #f5f5f5;
+}
+
+header {
+	position: relative;
+	max-width: 576px;
+	margin: auto;
+	/*background-color: blue;*/
 }
 
 h1, h2, h3, h4, h5, h6 { margin: 0px; }
@@ -21,12 +28,19 @@ h1, h2, h3, h4, h5, h6 { margin: 0px; }
     margin: 0px;
     padding: 0px;
     list-style: none;
+    box-sizing:border-box;
+    position: relative;
 }
 
-.container {
+.message {
+
+}
+
+.pages {
 	position: relative;
 	max-width: 576px;
 	margin: auto;
+	padding: 16px;
 }
 
 a {
@@ -41,10 +55,101 @@ a:not([href]):not([tabindex]):focus {
     cursor: pointer;
 }
 
+.cutter {
+	right: 0px;
+	top: 0px;
+	position: absolute;
+	width: 100%;
+	z-index: -1;
+	transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+	background-color: #e84118;
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+	/*background-image: linear-gradient(150deg, #e84118, #b31217);*/
+}
+
+.cutter.diagonal {
+	height: 350px;
+	clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+}
+
+.cutter.flat {
+	height: 60px;
+}
+
+.cutter.medium {
+	height: 121px;
+}
+
+.cutter.full {
+	height: 100vh;
+}
+
 .green {
-	color: #16a085;
+	color: #44bd32;
+}
+
+.blue {
+	color: #00a8ff;
 }
 
 .red {
-	color: #2980b9;
+	color: #e84118;
+}
+
+.clear:after {
+	content: "";
+	display: table;
+	clear:both;
+}
+
+.shadow {
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.btn {
+	background-color: #00a8ff;
+	color: #fff;
+	padding: 16px;
+	text-align: center;
+	display: block;
+	font-weight: bold;
+	cursor: pointer;
+	font-weight: bold;
+	letter-spacing: 1.5px;
+}
+
+.btn.green {
+	background-color: #44bd32;
+}
+
+.btn.grey {
+	background-color: #ddd;
+}
+
+.paper {
+	display: block;
+	background-color: white;
+	padding: 16px;
+}
+
+.center {
+	text-align: center;
+}
+
+*{
+	-webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.block {
+	display: block;
+}
+
+.none {
+	display: none;
 }

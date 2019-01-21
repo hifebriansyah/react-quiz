@@ -1,45 +1,53 @@
 import React, { Component } from 'react';
 import CryptoJS from 'crypto-js';
 import Question from '../components/Question';
+import { Link } from "react-router-dom";
 import '../styles/questions.css';
 
 class Questions extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			data: [],
-			questions: [],
+			questions: null,
 			selections:{},
 			position: 0
 		}
 	}
 
 	componentDidMount(){
-		fetch("https://gist.githubusercontent.com/hifebriansyah/5f62028cf655a6b5af592986057d88ef/raw")
+		fetch("https://gist.githubusercontent.com/hifebriansyah/5f62028cf655a6b5af592986057d88ef/raw/questions-"+this.props.match.params.section.toLowerCase()+"-"+this.props.match.params.id.toLowerCase()+".json")
 			.then(response => {
-				return response.json();
+				if (!response.ok) { throw response }
+				return response.text();
 			})
 			.then(result => {
+				result = JSON.parse(atob(result));
 				let data = result.data;
-
 				this.shuffleArray(data);
+				data = data.slice(0, 20);
 
 				let questions = data.map((question, i) => {
 					return (
 						<Question
-							eq={i+1}
-							key={question.id}
+							ts={this.props.ts}
+							key={i}
 							id={question.id}
 							content={question.content}
 							options={question.options}
-							categoryId={question.category.id}
-							onChooseOption={(questionId, optionId, categoryId) => this.onChooseOption(questionId, optionId, categoryId)}/>
+							category={question.category}
+							onChooseOption={(questionId, optionId, category, index) => this.onChooseOption(questionId, optionId, category, index)}/>
 					)                 
 				});
 
 				this.setState({questions, data});
 				this.renderQuestion();
+				document.querySelector(".nav").style.display = 'block';
+			})
+			.catch( err => {
+				this.setState({questions:false});
+				//console.warn(err);
 			});
 	}
 
@@ -62,14 +70,23 @@ class Questions extends Component {
 		});
 	}
 
-	onChooseOption(questionId, optionId, categoryId) {
+	onChooseOption(questionId, optionId, category, index) {
 		let selections = this.state.selections;
+		let options = this.state.data[this.state.position]['options'];
 
-		selections[questionId] = [optionId];
+		if(category === 1) {
+			for (let i = 0; i < options.length; i++) {
+				options[i].selection = (i === index);
+			}
 
-		if(categoryId === 2) {
-			var checked = document.querySelectorAll('[name=option'+questionId+']:checked');
+			selections[questionId] = [optionId];
+		} else if(category === 2) {
+			let checked = document.querySelectorAll('[name=option'+questionId+']:checked');
 		    selections[questionId] = Array.prototype.map.call(checked, function (e) {return e.value;});
+
+			for (let i = 0; i < options.length; i++) {
+				options[i].selection = (selections[questionId].indexOf(options[i].id) !== -1);
+			}
 
 			if(!selections[questionId].length){
 				delete selections[questionId]
@@ -77,6 +94,7 @@ class Questions extends Component {
 		}
 
 		this.setState({selections}, () => {
+			this.onFinish() 
 			document.querySelector(".finish").style.display = (Object.keys(selections).length === this.state.questions.length) ? 'block' : 'none';
 		});
 	}
@@ -104,20 +122,52 @@ class Questions extends Component {
 	}
 
 	onFinish() {
-		let selections = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.state.selections), 'selections'));
-		let questions = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.state.data), 'questions'));
-		window.location.replace("http://localhost:3000/result.html?selections=" + selections + "&questions=" +  questions);
+		let data = this.state.data;
+		let correct;
+
+		let result = {
+			score : 0,
+			questions : data,
+			correct: 0,
+			incorrect: 0,
+			section:this.props.match.params.section
+		};
+
+		for (let i = 0; i < data.length; i++) {
+			for (let x = 0; x < data[i]['options'].length; x++) {
+				correct = (data[i]['options'][x].answer === data[i]['options'][x].selection)
+				
+				if(!correct) {
+					result.incorrect++;
+					break;
+				}
+			}
+		}
+
+		result.correct = data.length - result.incorrect;
+		result.score = (result.correct / (data.length) * 100).toFixed(2).replace(/[.,]00$/, "");
+
+		localStorage.setItem('result', CryptoJS.AES.encrypt(JSON.stringify(result), 'result'));
 	}
 
 	render() {
+		let questions = (this.state.questions === null)
+			? <div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Loading')} &middot;&middot;&middot;</div>
+			: (this.state.questions === false)
+				? <div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Under Development')} &middot;&middot;&middot;</div>
+				: this.state.questions
+
+		let length = (this.state.questions) ? Object.keys(this.state.questions).length : 0;
+
 		return (
-			<div className="questions"> 
-				{this.state.questions}
-				<div className="clear">
-	        		<div className="previous" onClick={() => this.onNavigate(0)}>previous</div>
-	        		<div className="next" onClick={() => this.onNavigate(1)}>next</div>
+			<div className="questions page"> 
+				{questions}
+				<div className="clear nav">
+	        		<div className="previous shadow btn" onClick={() => this.onNavigate(0)}>{this.props.ts('Previous')}</div>
+	        		<div className="page-number">{this.state.position + 1} {this.props.ts('of')} {length}</div>
+	        		<div className="next shadow btn" onClick={() => this.onNavigate(1)}>{this.props.ts('Next')}</div>
         		</div>
-        		<div className="finish" onClick={() => this.onFinish()}>finish</div>
+        		<Link className="finish shadow btn green" onClick={() => this.onFinish()} to="/result">{this.props.ts('Finish')}</Link>
 			</div>
 		);
 	}

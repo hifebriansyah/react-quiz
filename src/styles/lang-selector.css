@@ -1,0 +1,50 @@
+.lang-selector {
+	width: 72px;
+	height: 60px;
+	float: left;
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: calc(100% - 16px) 50%;
+}
+
+.lang-selector > div {
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: cover;
+	right: 16px;
+	top: 15px;
+	width: 30px;
+	height: 30px;
+	transition: all 1s cubic-bezier(.25,.8,.25,1);
+	transform: rotate(0deg);
+}
+
+.lang-selector > div:nth-child(1) {
+	background-image: url('/en.svg');
+}
+
+.lang-selector > div:nth-child(2) {
+	background-image: url('/bi.svg');
+}
+
+
+.lang-selector.en > div:nth-child(1) {
+	transform: rotate(0deg) scale(1);
+	opacity: 1;
+}
+
+.lang-selector.en > div:nth-child(2) {
+	transform: rotate(720deg) scale(0);
+	opacity: 0;
+}
+
+
+.lang-selector.bi > div:nth-child(1) {
+	transform: rotate(720deg) scale(0);
+	opacity: 0;
+}
+
+.lang-selector.bi > div:nth-child(2) {
+	transform: rotate(0deg) scale(1);
+	opacity: 1;
+}

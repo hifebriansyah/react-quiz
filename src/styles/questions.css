@@ -1,22 +1,35 @@
 .questions {
-	width: 500px;
-	margin : 0 auto;
+	position: relative;
+}
+
+.questions .nav {
+	display: none;
 }
 
 .next, .previous, .finish {
-	display: block;
-	padding: 8px;
-	background-color: #189ab6;
 	float: left;
-	color: #fff;
-	cursor: pointer;
+	width: 110px;
+	letter-spacing: 3px;
 }
 
-.finish {
+.page-number {
+	position: absolute;
+	width: 120px;
+	text-align: center;
+	left: calc(50% - 60px);
+	/*background: orange;*/
+	font-weight: bold;
+	padding: 16px;
+}
+
+.btn.finish {
 	display: none;
 	float: none;
+	margin: 16px auto;
+	width: 110px;
+    text-align: center;
+    background-color: #44bd32;
 }
-
 
 .next {
 	float: right;

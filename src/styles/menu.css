@@ -1,15 +1,17 @@
-.menu {
+.menu > a, .menu > span  {
+	display: block;
+	color: #fff;
 	padding: 16px;
-	position: relative;
+	text-align: center;
+	border-radius: 50px;
+	margin: 32px 0px;
+	letter-spacing: 3px;
 }
 
-.cutter {
-	right: 0px;
-	top: 0px;
-	position: fixed;
-	height: 300px;
-	width: 100%;
-	background-image: linear-gradient(#ff9d2f, #ff6126);
-	clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
-	z-index: -1;
+.menu > a {
+	border:1px solid #fff;
+}
+
+.menu > span {
+	margin-top: 48px
 }

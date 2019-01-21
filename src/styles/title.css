@@ -1,0 +1,13 @@
+.title {
+	width: calc(100% - 144px);
+	height: 60px;
+	position: relative;
+	float: left;
+	color: #fff;
+	font-size: 2.4rem;
+	text-align: center;
+	padding-top: 16px;
+	letter-spacing: 3px;
+	white-space: nowrap;
+	overflow: hidden;
+}
