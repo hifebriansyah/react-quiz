@@ -50,7 +50,7 @@
 				    response.score = response.correct / (response.correct + response.incorrect) * 100;
 				});
 
-				window.location.replace("http://localhost:3000/result?result=" + encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(response), 'result')));
+				window.location.replace("/result?result=" + encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(response), 'result')));
 			});
 
 			function searchById(array, id) {
