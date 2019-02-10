@@ -16,13 +16,18 @@ class Courses extends Component {
 				return response.json();
 			})
 			.then(result => {
-				this.setState({data:result.data});
+				this.setState({data:result.data}, () => {
+					//window.setTimeout(function () {
+						document.querySelector(".courses").classList.remove('none');
+						document.querySelector(".courses").classList.add('tVisible');
+					//}, 500);
+				});
 			});
 	}
 
 	render() {
 		let courses = (!this.state.data) 
-			? <div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Loading')} &middot;&middot;&middot;</div>
+			? null //<div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Loading')} &middot;&middot;&middot;</div>
 			: this.state.data.map((course, i) => {   
 				return (
 					<Course 
@@ -38,7 +43,7 @@ class Courses extends Component {
 			});
 
 		return (
-			<div className="courses page">
+			<div className="courses page none">
 				{courses}
 			</div>
 		);

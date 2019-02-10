@@ -18,9 +18,14 @@ class Sections extends Component {
 			})
 			.then(result => {
 				this.setState({data:result.data}, () => {
-					this.onTypeToggle(null, 1);
-					document.querySelector(".type-toggle").classList.add('block');
-					this.props.setCutter('medium');
+					let self = this;
+					self.props.setCutter('medium');
+
+					//window.setTimeout(function () {
+						document.querySelector(".type-toggle").classList.remove('none');
+						document.querySelector(".type-toggle").classList.add('visible');
+						self.onTypeToggle(null, 1);
+					//}, 500);
 				});
 			})
 			.catch( err => {
@@ -30,22 +35,16 @@ class Sections extends Component {
 	}
 
 	onTypeToggle(e, active_type) {
-		document.querySelectorAll(".section").forEach(element => {
-			element.classList.remove("block")
-			element.classList.add("none")
+		document.querySelectorAll(".types").forEach(element => {
+			element.classList.add("tHidden")
+			element.classList.remove("tVisible")
 		});
 
-		document.querySelectorAll(".section.type-" + active_type).forEach(element => {
+		document.querySelectorAll(".types-" + active_type).forEach(element => {
 			element.classList.remove("none")
-			element.classList.add("block")
+			element.classList.remove("tHidden")
+			element.classList.add("tVisible")
 		});
-
-		let sectionBlocks = document.querySelectorAll(".section.block");
-
-		if(sectionBlocks[0]) {
-			sectionBlocks[0].classList.add("first");
-			sectionBlocks[sectionBlocks.length-1].classList.add("last");
-		}
 
 		if(e) {
 			document.querySelectorAll(".type-toggle > div").forEach(element => {
@@ -58,13 +57,11 @@ class Sections extends Component {
 		};
 	}
 
-	render() {
-		let sections = (this.state.data === null)
-			? <div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Loading')} &middot;&middot;&middot;</div>
-			: (this.state.data === false)
-				? <div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Under Development')} &middot;&middot;&middot;</div>
-				: this.state.data.map((section, i) => {
-					return (
+	renderSections(type) {
+		return (
+			<div className={"none types types-"+type}> 
+				{this.state.data.map((section, i) => {
+					if(type === section.type.id) return (
 						<Section 
 							ts={this.props.ts}
 							title={section.title}
@@ -72,17 +69,35 @@ class Sections extends Component {
 							type={section.type}
 							chapters={section.chapters}
 							section={this.props.match.params.section} />
-					)                 
-				});
+					)
+
+					return null;               
+				})}
+			</div>
+		)
+	}
+
+	render() {
+		let sections = (this.state.data === null)
+			? null //<div className="center">&middot;&middot;&middot; {this.props.ts('Loading')} &middot;&middot;&middot;</div>
+			: (this.state.data === false)
+				? <div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Under Development')} &middot;&middot;&middot;</div>
+				: (
+					<div>
+						{this.renderSections(1)}
+						{this.renderSections(2)}
+						{this.renderSections(3)}
+					</div>
+				);
 
 	    return(
 	        <div className="sections page">
-	        	<div className="type-toggle clear type-1">
+	        	<div className="type-toggle clear type-1 none">
 	        		<div onClick={(e, active_type) => this.onTypeToggle(e, 1)} className="active">{this.props.ts('Exams')}</div>
 	        		<div onClick={(e, active_type) => this.onTypeToggle(e, 2)}>{this.props.ts('Lessons')}</div>
 	        		<div onClick={(e, active_type) => this.onTypeToggle(e, 3)}>{this.props.ts('Videos')}</div>
 	        	</div>
-	        	<div>{sections}</div>
+	        	{sections}
 	        </div>
 	    )
 	}

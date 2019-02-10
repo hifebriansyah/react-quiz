@@ -61,7 +61,7 @@ a:not([href]):not([tabindex]):focus {
 	position: absolute;
 	width: 100%;
 	z-index: -1;
-	transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+	transition: all 0.8s cubic-bezier(.25,.8,.25,1);
 	background-color: #e84118;
 	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 	/*background-image: linear-gradient(150deg, #e84118, #b31217);*/
@@ -74,6 +74,7 @@ a:not([href]):not([tabindex]):focus {
 
 .cutter.flat {
 	height: 60px;
+	height: 121px;
 }
 
 .cutter.medium {
@@ -152,4 +153,112 @@ a:not([href]):not([tabindex]):focus {
 
 .none {
 	display: none;
+}
+
+.visible {
+	animation:toVisible 1s cubic-bezier(.25,.8,.25,1) forwards;
+}
+
+.hidden {
+	animation:toHidden 1s cubic-bezier(.25,.8,.25,1) forwards;
+}
+
+
+@keyframes toVisible {
+    0% {
+    	display:none;
+    	overflow: hidden;
+    	height: 0;
+        opacity: 0;
+    }
+
+    50% {
+    	display:block;
+    	overflow: all;
+    	height: auto;
+        opacity: 0;
+    }
+
+    100% {
+    	display:block;
+    	overflow: all;
+    	height: auto;
+        opacity: 1;
+    }
+}
+
+@keyframes toHidden {
+    0% {
+    	display:block;
+    	overflow: all;
+    	height: auto;
+        opacity: 1;
+    }
+
+    99.99999% {
+    	display:block;
+    	overflow: all;
+    	height: 0;
+        opacity: 0;
+    }
+
+    100% {
+    	display:none;
+    	overflow: hidden;
+    	height: 0;
+        opacity: 0;
+    }
+}
+
+.tVisible {
+    animation:toTVisible 1s cubic-bezier(.25,.8,.25,1) forwards;
+}
+
+.tHidden {
+    animation:toTHidden 0.5s cubic-bezier(.25,.8,.25,1) forwards;
+}
+
+@keyframes toTVisible {
+    0% {
+    	display:none;
+        overflow: all;
+        height: auto;
+        opacity: 1;
+        top: 200vh;
+        transform: scale(1, 1);
+        z-index: 1;
+    }
+
+    0.00001% {
+    	display:block;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
+
+@keyframes toTHidden {
+    0% {
+    	display:block;
+    	overflow: all;
+    	height: auto;
+        opacity: 1;
+        transform: scale(1, 1);
+        z-index: -1;
+        top: 0;
+    }
+
+    99.99999% {
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+        top: 10vh;
+    }
+
+    100% {
+    	display:none;
+    	overflow: hidden;
+    	height: 0;
+        top: -99999px;
+    }
 }

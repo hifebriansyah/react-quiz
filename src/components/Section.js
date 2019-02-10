@@ -13,14 +13,14 @@ const Section = (props) => {
 	})
 
     return(
-        <div className={"type-" + props.type.id + " section"}>
-        	<div className="top shadow" style={{backgroundImage:'linear-gradient(rgba(100, 100, 100, 0), rgba(100, 100, 100, 0.8)), url(/'+ props.section.toLowerCase() +'.jpeg)'}}>
+        <div className="section shadow">
+        	<div className="top" style={{backgroundImage:'linear-gradient(rgba(100, 100, 100, 0), rgba(100, 100, 100, 0.8)), url(/'+ props.section.toLowerCase() +'.jpeg)'}}>
 				<div>
 					<h1>{props.ts(props.title)}</h1>
 					<p>{props.ts(props.type)}</p>
 				</div>
 			</div>
-    		<div className="chapters shadow">
+    		<div className="chapters">
     			{chapters}
     		</div>
     	</div>
