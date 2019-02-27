@@ -11,7 +11,7 @@ class Sections extends Component {
 	}
 
 	componentDidMount(){
-		fetch("https://gist.githubusercontent.com/hifebriansyah/5f62028cf655a6b5af592986057d88ef/raw/sections-"+this.props.match.params.section.toLowerCase()+".json")
+		fetch(this.props.config.api.path + "/sections_" + this.props.match.params.section.toLowerCase())
 			.then(response => {
 				if (!response.ok) { throw response }
 				return response.json();

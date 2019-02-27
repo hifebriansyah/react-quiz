@@ -108,9 +108,21 @@
 
 .result .summary > div > span:nth-child(3){
 	font-weight: normal;
+	width: 140px;
 }
 
 .result .question .feedback {
 	border: 0px;
 	border-top: 1px solid #f0f0f0;
+}
+
+@media (max-width: 576px) {
+	.result {
+		margin: -16px;
+	}
+
+	.result .summary,
+	.result .question {
+		margin-bottom: 16px;
+	}
 }

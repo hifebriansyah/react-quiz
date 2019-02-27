@@ -141,3 +141,13 @@
 	position: absolute;
 	transform-origin: 50% 0;
 }
+
+@media (max-width: 576px) {
+	.section {
+		width: calc(100% + 32px);
+		margin-left: -16px;
+		margin-right: -16px;
+		margin-top: 8px !important;
+		margin-bottom: 16px !important;
+	}
+}

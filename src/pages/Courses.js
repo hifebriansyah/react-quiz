@@ -11,7 +11,7 @@ class Courses extends Component {
 	}
 
 	componentDidMount(){
-		fetch("https://gist.githubusercontent.com/hifebriansyah/5f62028cf655a6b5af592986057d88ef/raw/courses.json")
+		fetch(this.props.config.api.path + "/courses")
 			.then(response => {
 				return response.json();
 			})

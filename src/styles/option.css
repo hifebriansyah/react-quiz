@@ -26,3 +26,15 @@
 .option.true > div {
 	border-color: #48B964;
 }
+
+
+@media (max-width: 576px) {
+	.option {
+		margin-bottom: 0;
+		border-bottom: #ddd 1px solid;
+	}
+
+	.option:last-child {
+		border-bottom: none;
+	}
+}

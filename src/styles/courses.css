@@ -4,3 +4,13 @@
 	margin-top: 16px;
 	padding-bottom: 16px;
 }
+
+@media (max-width: 576px) {
+	.courses {
+		width: 100%;
+		left: 0;
+	}
+	.course {
+		margin-top: 102px;
+	}
+}

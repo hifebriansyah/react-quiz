@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^courses$ courses.php [NC]
+RewriteRule ^sections_(.*)$ sections.php?link=$1 [NC]
+RewriteRule ^questions_(.*)_(.*)$ questions.php?link=$1&title=$2 [NC]

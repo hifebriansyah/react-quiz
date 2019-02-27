@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 $servername = "localhost";
 $username = "root";
@@ -11,7 +12,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$questions = $conn->query('SELECT * FROM questions')->fetch_all(MYSQLI_ASSOC);
+$title = str_replace("-", " ", $_GET['title']);
+
+$chapter = $conn->query('SELECT * FROM chapters where title_en = "'.$title.'"')->fetch_all(MYSQLI_ASSOC);
+
+$where = ($chapter[0]['content_en'])
+	? 'where id in ('.$chapter[0]['content_en'].')'
+	: '';
+
+$questions = $conn->query('SELECT id, content_en, content_bi, feedback_en, feedback_bi, category FROM questions '.$where)->fetch_all(MYSQLI_ASSOC);
 $options = $conn->query('SELECT * FROM options')->fetch_all(MYSQLI_ASSOC);
 
 $conn->close();

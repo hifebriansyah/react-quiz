@@ -17,7 +17,7 @@ class Questions extends Component {
 	}
 
 	componentDidMount(){
-		fetch("https://gist.githubusercontent.com/hifebriansyah/5f62028cf655a6b5af592986057d88ef/raw/questions-"+this.props.match.params.section.toLowerCase()+"-"+this.props.match.params.id.toLowerCase()+".json")
+		fetch(this.props.config.api.path + "/questions_"+this.props.match.params.section.toLowerCase()+"_"+this.props.match.params.id.toLowerCase())
 			.then(response => {
 				if (!response.ok) { throw response }
 				return response.text();
@@ -44,6 +44,13 @@ class Questions extends Component {
 				this.setState({questions, data});
 				this.renderQuestion();
 				document.querySelector(".nav").style.display = 'block';
+
+				this.setState({data}, () => {
+					//window.setTimeout(function () {
+						document.querySelector(".questions").classList.remove('none');
+						document.querySelector(".questions").classList.add('tVisible');
+					//}, 500);
+				});
 			})
 			.catch( err => {
 				this.setState({questions:false});
@@ -160,7 +167,7 @@ class Questions extends Component {
 		let length = (this.state.questions) ? Object.keys(this.state.questions).length : 0;
 
 		return (
-			<div className="questions page"> 
+			<div className="questions page none"> 
 				{questions}
 				<div className="clear nav">
 	        		<div className="previous shadow btn" onClick={() => this.onNavigate(0)}>{this.props.ts('Previous')}</div>

@@ -74,7 +74,7 @@ a:not([href]):not([tabindex]):focus {
 
 .cutter.flat {
 	height: 60px;
-	height: 121px;
+	/*height: 121px;*/
 }
 
 .cutter.medium {
@@ -260,5 +260,16 @@ a:not([href]):not([tabindex]):focus {
     	overflow: hidden;
     	height: 0;
         top: -99999px;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .cutter.diagonal {
+        height: 160px;
+        clip-path: none;
+    }
+    .cutter.flat {
+        height: 60px;
     }
 }

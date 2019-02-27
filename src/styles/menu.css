@@ -1,3 +1,7 @@
+.menu {
+	width: calc(100% - 32px);
+	position: absolute;
+}
 .menu > a, .menu > span  {
 	display: block;
 	color: #fff;

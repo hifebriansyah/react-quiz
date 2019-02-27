@@ -18,19 +18,14 @@ function AppRouter() {
 	let [lang, setLang]  = useState(localStorage.getItem('lang') || 'en');
 	let [cutter, setCutter]  = useState('flat');
 	let locale = require('./locale.json');
+	let config = require('./config.json');
+
+	config.api.path = config.api[config.env];
 
 	function ts(text) {
-		let ts;
-
-		if(typeof text === "object"){
-			ts = (text[lang]) ? text[lang] : text['en'];
-			//if (!text[lang]) console.warn(text['en']);
-		} else {
-			ts = (locale[text] && lang!=="en") ? locale[text] : text;
-			//if (!locale[text]) console.warn(text);
-		}
-
-		return ts;
+		return (typeof text === "object")
+			? (text[lang] || text['en'])
+			: ((locale[text] && lang!=="en") ? locale[text] : text);
 	}
 
 	function toggleLang() {
@@ -52,15 +47,16 @@ function AppRouter() {
 
 				<div className="pages">
 					<Switch>
-						<Route path="/" render={(props) => <Courses {...props} ts={ts} />} exact/>
-						<Route path="/menu" render={(props) => <Menu {...props} ts={ts} />}/>
-						<Route path="/result" render={(props) => <Result {...props} ts={ts} />}/>
-						<Route path="/courses/:section/:id" render={(props) => <Questions {...props} ts={ts} />}/>
+						<Route path="/" render={(props) => <Courses {...props} ts={ts} config={config} />} exact/>
+						<Route path="/menu" render={(props) => <Menu {...props} ts={ts} config={config} />}/>
+						<Route path="/result" render={(props) => <Result {...props} ts={ts} config={config} />}/>
+						<Route path="/courses/:section/:id" render={(props) => <Questions {...props} ts={ts} config={config} />}/>
 
 						<Route path="/courses/:section" render={(props) => <Sections {...props} 
 							ts={ts}
 							cutter={cutter}
-							setCutter={setCutter} />}/>
+							setCutter={setCutter}
+							config={config}  />}/>
 
 						<Route path="/new" render={(props) => <New {...props} ts={ts} />}/>
 					</Switch>

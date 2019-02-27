@@ -36,9 +36,10 @@ foreach ($data['questions'] as $i => $question) {
 
 	if (!in_array($prompt, $question_keys)) {
 		$question_keys[] = $prompt;
+		$id = count($question_keys);
 
-		$questions[$i] = [
-			'id' => $i+1,
+		$questions[$id - 1] = [
+			'id' => $id,
 			'feedback_en' => $text_explanation,
 			'content_en' => $prompt,
 			'category' => ($question['display_type'] == 'checkbox' ? 2 : 1)
@@ -57,15 +58,15 @@ foreach ($data['questions'] as $i => $question) {
 					'answer' => $choice['credited'],
 				];
 
-				$questions[$i]['options'][] = $temp;
+				$questions[$id - 1]['options'][] = $temp;
 
 				if ($key = array_search($needle, $option_keys)) {
-					$options[$key]['question_ids'][] = $i+1;
+					$options[$key]['question_ids'][] = $id;
 				} else {
 					$index = count($options);
 					$option_keys[count($options)] = $needle;
 					$options[$index] = $temp;
-					$options[$index]['question_ids'][] = $i+1;
+					$options[$index]['question_ids'][] = $id;
 				}
 			}
 		}
