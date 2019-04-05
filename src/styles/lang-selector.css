@@ -7,6 +7,10 @@
 	background-position: calc(100% - 16px) 50%;
 }
 
+.lang-selector.none {
+  display: block;
+}
+
 .lang-selector > div {
 	position: absolute;
 	background-repeat: no-repeat;
@@ -47,4 +51,12 @@
 .lang-selector.bi > div:nth-child(2) {
 	transform: rotate(0deg) scale(1);
 	opacity: 1;
+}
+
+.lang-selector.bi.none > div:nth-child(1),
+.lang-selector.en.none > div:nth-child(1),
+.lang-selector.bi.none > div:nth-child(2),
+.lang-selector.en.none > div:nth-child(2) {
+	transform: rotate(-720deg) scale(0);
+	opacity: 0;
 }

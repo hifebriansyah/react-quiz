@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Cutter from './components/Cutter';
 import Hamburger from './components/Hamburger';
 import LangSelector from './components/LangSelector';
+import Loader from './components/Loader';
 import Title from './components/Title';
 import Menu from './pages/Menu';
 import Courses from './pages/Courses';
@@ -17,6 +18,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function AppRouter() {
 	let [lang, setLang]  = useState(localStorage.getItem('lang') || 'en');
 	let [cutter, setCutter]  = useState('flat');
+	let [loading, setLoading]  = useState(false);
 	let locale = require('./locale.json');
 	let config = require('./config.json');
 
@@ -42,21 +44,27 @@ function AppRouter() {
 				<header className="clear">
 					<Route render={(props) => <Hamburger {...props} />} />
 					<Route render={(props) => <Title {...props} />} />
-					<Route render={(props) => <LangSelector {...props} lang={lang} toggleLang={toggleLang} />} />
+					<Loader loading={loading} />
+					<LangSelector lang={lang} toggleLang={toggleLang} loading={loading} />
 				</header>
 
 				<div className="pages">
 					<Switch>
-						<Route path="/" render={(props) => <Courses {...props} ts={ts} config={config} />} exact/>
+						<Route path="/" render={(props) => <Courses {...props}
+							ts={ts}
+							config={config}
+							setLoading={setLoading}
+							setCutter={setCutter} />} exact/>
+						
 						<Route path="/menu" render={(props) => <Menu {...props} ts={ts} config={config} />}/>
 						<Route path="/result" render={(props) => <Result {...props} ts={ts} config={config} />}/>
 						<Route path="/courses/:section/:id" render={(props) => <Questions {...props} ts={ts} config={config} />}/>
 
 						<Route path="/courses/:section" render={(props) => <Sections {...props} 
 							ts={ts}
-							cutter={cutter}
-							setCutter={setCutter}
-							config={config}  />}/>
+							config={config}
+							setLoading={setLoading}
+							setCutter={setCutter} />}/>
 
 						<Route path="/new" render={(props) => <New {...props} ts={ts} />}/>
 					</Switch>

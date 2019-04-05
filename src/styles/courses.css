@@ -1,7 +1,6 @@
 .courses {
 	position: absolute;
 	width: calc(100% - 32px);
-	margin-top: 16px;
 	padding-bottom: 16px;
 }
 

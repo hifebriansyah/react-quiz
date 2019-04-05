@@ -1,7 +1,7 @@
 {
-	"env" : "dev",
+	"env" : "prod",
 	"api" : {
 		"prod" : "https://gist.githubusercontent.com/hifebriansyah/5f62028cf655a6b5af592986057d88ef/raw",
-		"dev" : "http://192.168.43.93/react-quiz/generator"
+		"dev" : "http://localhost/react-quiz/generator"
 	}	
 }

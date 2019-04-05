@@ -1,0 +1,21 @@
+{  
+   "background_color":"#f5f5f5",
+   "description":"scrum.id",
+   "display":"standalone",
+   "short_name":"scrum.id",
+   "name":"scrum.id",
+   "start_url":"/"//,
+   // "theme_color":"#e84118",
+   // "icons":[  
+   //    {  
+   //       "src":"//hifebriansyah.com/static/favicons/android-chrome-192x192.png",
+   //       "sizes":"192x192",
+   //       "type":"image/png"
+   //    },
+   //    {  
+   //       "src":"//hifebriansyah.com/static/favicons/android-chrome-256x256.png",
+   //       "sizes":"512x512",
+   //       "type":"image/png"
+   //    }
+   // ]
+}

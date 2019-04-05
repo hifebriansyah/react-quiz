@@ -11,23 +11,33 @@ class Courses extends Component {
 	}
 
 	componentDidMount(){
+		var self = this;
+		this.props.setLoading(true);
+
 		fetch(this.props.config.api.path + "/courses")
 			.then(response => {
 				return response.json();
 			})
 			.then(result => {
 				this.setState({data:result.data}, () => {
-					//window.setTimeout(function () {
-						document.querySelector(".courses").classList.remove('none');
-						document.querySelector(".courses").classList.add('tVisible');
-					//}, 500);
+					window.setTimeout(function () {
+						self.props.setLoading(false);
+						document.querySelector(".course-container").classList.remove('none');
+						document.querySelector(".course-container").classList.add('tVisible');
+					}, 0);
 				});
+			})
+			.catch( err => {
+				self.props.setCutter('flat');
+				self.props.setLoading(false);
+				document.querySelector(".courses .message").classList.remove('none');
+				document.querySelector(".courses .message").classList.add('tVisible');
 			});
 	}
 
 	render() {
 		let courses = (!this.state.data) 
-			? null //<div className="message paper shadow center">&middot;&middot;&middot; {this.props.ts('Loading')} &middot;&middot;&middot;</div>
+			? null
 			: this.state.data.map((course, i) => {   
 				return (
 					<Course 
@@ -43,8 +53,11 @@ class Courses extends Component {
 			});
 
 		return (
-			<div className="courses page none">
-				{courses}
+			<div className="courses page">
+				<div className="message paper shadow center none">&middot;&middot;&middot; {this.props.ts('Under Development')} &middot;&middot;&middot;</div>
+				<div className="course-container none">
+					{courses}
+				</div>
 			</div>
 		);
 	}

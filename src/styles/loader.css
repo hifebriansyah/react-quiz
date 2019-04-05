@@ -1,0 +1,41 @@
+.loader {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 72px;
+  height: 60px;
+  transition: all 1s cubic-bezier(.25,.8,.25,1);
+  /*background-color: black;*/
+}
+.loader:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  right: 15px;
+  top: 15px;
+  box-sizing: border-box;
+  border: 15px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: loader 1.2s infinite;
+  transition: all 1s cubic-bezier(.25,.8,.25,1);
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+.loader.none {
+  display: block;
+  opacity: 0;
+}
